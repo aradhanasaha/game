@@ -50,7 +50,7 @@ const BRUSH_CURSOR = (() => {
   return `url("data:image/svg+xml,${encodeURIComponent(s)}") 20 31, crosshair`;
 })();
 
-const MATCH_THRESHOLD = 0.75;
+const MATCH_THRESHOLD = 0.70;
 const SWATCH = 26, SWATCH_G = 4, PAL_COLS = 4;
 
 // ── State ─────────────────────────────────────────────────────────────────────
@@ -564,7 +564,7 @@ function drawRightPanel(ctx) {
     { size: 11, align: 'center', color: sec < 10 ? P.coral : P.butter, shadow: true });
   const mPct = Math.floor(state.matchPct * 100);
   drawText(ctx, `${mPct}%`, px + PANEL_W - 26, infoY + 14,
-    { size: 11, align: 'center', color: mPct >= 75 ? P.mint : mPct >= 40 ? P.butter : P.coral, shadow: true });
+    { size: 11, align: 'center', color: mPct >= 70 ? P.mint : mPct >= 40 ? P.butter : P.coral, shadow: true });
   drawText(ctx, 'time',  px + 26,          infoY + 24, { size: 5, align: 'center', color: P.pinkBlush });
   drawText(ctx, 'match', px + PANEL_W - 26, infoY + 24, { size: 5, align: 'center', color: P.pinkBlush });
 
@@ -591,20 +591,15 @@ function drawRightPanel(ctx) {
 
   const btnBase = palY + palPanH + 4;
 
-  // Hint
-  drawPanel(ctx, px, btnBase,      PANEL_W, 22, state.showHint ? P.pinkMid : '#ccc', { bevel: 2 });
-  drawText(ctx, 'HINT', px + PANEL_W/2, btnBase + 15,
-    { size: 5, align: 'center', color: state.showHint ? P.cream : P.darkOutline });
-
   // Undo
-  drawPanel(ctx, px, btnBase + 28, PANEL_W, 22, P.pinkDeep, { bevel: 2 });
-  drawText(ctx, `UNDO (${state.undoStack.length})`, px + PANEL_W/2, btnBase + 43,
+  drawPanel(ctx, px, btnBase,      PANEL_W, 22, P.pinkDeep, { bevel: 2 });
+  drawText(ctx, `UNDO (${state.undoStack.length})`, px + PANEL_W/2, btnBase + 15,
     { size: 5, align: 'center', color: P.cream });
 
   // Submit
   if (state.matchPct >= MATCH_THRESHOLD && !state.submitted) {
-    drawPanel(ctx, px, btnBase + 56, PANEL_W, 30, P.hotMagenta, { bevel: 3 });
-    drawText(ctx, 'SUBMIT!', px + PANEL_W/2, btnBase + 76,
+    drawPanel(ctx, px, btnBase + 28, PANEL_W, 30, P.hotMagenta, { bevel: 3 });
+    drawText(ctx, 'SUBMIT!', px + PANEL_W/2, btnBase + 48,
       { size: 7, align: 'center', color: P.cream, shadow: true });
   }
 }
@@ -637,8 +632,8 @@ function drawResultOverlay(ctx) {
     { size: 16, align: 'center', color: P.cream, shadow: true });
   const pct = Math.floor(state.matchPct * 100);
   drawText(ctx, `${pct}% color match`, W/2, H/2,
-    { size: 9, align: 'center', color: pct >= 75 ? P.mint : P.butter });
-  drawText(ctx, state.passed ? `+${state.score} pts  ✓ level clear!` : 'need 75% — keep painting!',
+    { size: 9, align: 'center', color: pct >= 70 ? P.mint : P.butter });
+  drawText(ctx, state.passed ? `+${state.score} pts  ✓ level clear!` : 'need 70% — keep painting!',
     W/2, H/2+28, { size: 7, align: 'center', color: state.passed ? P.butter : P.coral });
 }
 
@@ -661,11 +656,10 @@ function handlePanelClick(mx, my, G) {
     if (inBox(mx, my, sx, sy, sw, SWATCH)) { state.selectedColor = palette[i]; return true; }
   }
 
-  if (inBox(mx, my, px, btnBase,      PANEL_W, 22)) { state.showHint = !state.showHint; return true; }
-  if (inBox(mx, my, px, btnBase + 28, PANEL_W, 22)) { undoFill(); return true; }
+  if (inBox(mx, my, px, btnBase,      PANEL_W, 22)) { undoFill(); return true; }
 
   if (state.matchPct >= MATCH_THRESHOLD && !state.submitted &&
-      inBox(mx, my, px, btnBase + 56, PANEL_W, 30)) {
+      inBox(mx, my, px, btnBase + 28, PANEL_W, 30)) {
     submitArt(G); return true;
   }
   return false;
