@@ -326,12 +326,18 @@ const Level1 = {
     // Controls hint
     if (G.frame < 240) {
       const alpha = G.frame < 180 ? 1 : 1 - (G.frame - 180) / 60;
+      ctx.save();
+      ctx.globalAlpha = alpha * 0.72;
+      ctx.fillStyle = '#1a0a1a';
+      ctx.beginPath();
+      ctx.roundRect(W / 2 - 160, H - 52, 320, 42, 8);
+      ctx.fill();
       ctx.globalAlpha = alpha;
-      drawText(ctx, 'press Z to punch', W / 2, H - 20,
-        { size: 7, align: 'center', color: P.pinkBright, shadow: true });
-      drawText(ctx, 'X: heavy  C: kick  Z+X: special', W / 2, H - 8,
-        { size: 5, align: 'center', color: P.pinkDeep });
-      ctx.globalAlpha = 1;
+      drawText(ctx, 'press Z to punch', W / 2, H - 32,
+        { size: 7, align: 'center', color: P.butter, shadow: true });
+      drawText(ctx, 'X: heavy   C: kick   Z+X: special', W / 2, H - 16,
+        { size: 5, align: 'center', color: P.pinkPale });
+      ctx.restore();
     }
   },
 
