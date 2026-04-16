@@ -324,9 +324,14 @@ const Level1 = {
     }
 
     // Controls hint
-    if (G.frame < 180) {
-      drawText(ctx, 'Z:punch  X:heavy  C:kick  Z+X:special', W / 2, H - 12,
-        { size: 6, align: 'center', color: P.pinkDeep });
+    if (G.frame < 240) {
+      const alpha = G.frame < 180 ? 1 : 1 - (G.frame - 180) / 60;
+      ctx.globalAlpha = alpha;
+      drawText(ctx, 'press Z to punch', W / 2, H - 20,
+        { size: 7, align: 'center', color: P.pinkBright, shadow: true });
+      drawText(ctx, 'X: heavy  C: kick  Z+X: special', W / 2, H - 8,
+        { size: 5, align: 'center', color: P.pinkDeep });
+      ctx.globalAlpha = 1;
     }
   },
 
