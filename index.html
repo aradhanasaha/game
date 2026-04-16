@@ -57,9 +57,50 @@
     @media (pointer: coarse) {
       #touch-controls { display: block; }
     }
+
+    /* Mobile warning overlay */
+    #mobile-warning {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: #fff1d6;
+      z-index: 999;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 32px;
+      font-family: 'Press Start 2P', monospace;
+    }
+    #mobile-warning .mw-emoji {
+      font-size: 56px;
+      margin-bottom: 28px;
+      line-height: 1;
+    }
+    #mobile-warning .mw-title {
+      font-size: 13px;
+      color: #c2185b;
+      line-height: 2;
+      margin-bottom: 20px;
+    }
+    #mobile-warning .mw-sub {
+      font-size: 8px;
+      color: #e91e8c;
+      line-height: 2.2;
+    }
+    @media (pointer: coarse) {
+      #mobile-warning { display: flex; }
+    }
   </style>
 </head>
 <body>
+  <!-- Mobile warning (shown on touch devices) -->
+  <div id="mobile-warning">
+    <div class="mw-emoji">💻</div>
+    <div class="mw-title">best experienced<br>on a laptop!</div>
+    <div class="mw-sub">grab a computer<br>and come back 💗</div>
+  </div>
+
   <div id="game-wrapper">
     <canvas id="game-canvas" width="700" height="420"></canvas>
     <div id="touch-controls"></div>
