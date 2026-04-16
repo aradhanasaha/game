@@ -20,7 +20,6 @@ level3Bg.src = 'assets/background/level3bg.jpg';
 
 // ── Art images ────────────────────────────────────────────────────────────────
 const LEVEL3_ART_IMAGES = [
-  { name: 'lemon',     path: 'assets/level3art/lemon.jpg'     },
   { name: 'butterfly', path: 'assets/level3art/butterfly.jpg' },
   { name: 'heart',     path: 'assets/level3art/heart.jpg'     },
 ];
