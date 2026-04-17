@@ -323,9 +323,9 @@ const Level1 = {
       ctx.restore();
     }
 
-    // Controls hint
-    if (G.frame < 240) {
-      const alpha = G.frame < 180 ? 1 : 1 - (G.frame - 180) / 60;
+    // Controls hint (roundIntroTimer resets to 0 on init/death, unlike G.frame)
+    if (state.roundIntroTimer < 310) {
+      const alpha = state.roundIntroTimer < 250 ? 1 : 1 - (state.roundIntroTimer - 250) / 60;
       ctx.save();
       ctx.globalAlpha = alpha * 0.72;
       ctx.fillStyle = '#1a0a1a';
